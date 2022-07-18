@@ -17,4 +17,5 @@ docker exec -it IDcontainer /bin/bash
 gitlab-rails console
 
 Test message:
+
 Notify.test_email('destination_email@address.com', 'Message Subject', 'Message Body').deliver_now
