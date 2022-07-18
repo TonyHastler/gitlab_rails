@@ -8,7 +8,7 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         #Gitlab configure
-        external_url 'https://www.it.lippgardtco.org'
+        external_url 'https://www.gitlab.com
         gitlab_rails['gitlab_shell_ssh_port'] = 2224
         gitlab_rails['gitlab_default_theme'] = 2
         #Send outgoing email via the SMTP container:
@@ -16,8 +16,8 @@ services:
         gitlab_rails['smtp_address'] = "smtp.dentalbot.ru"
         gitlab_rails['smtp_port'] = 25
         gitlab_rails['smtp_domain'] = "dentalbot.ru"
-        gitlab_rails['smtp_user_name'] = "itgitlab@dentalbot.ru"
-        gitlab_rails['smtp_password'] = "zRYinffxft9xaNX"
+        gitlab_rails['smtp_user_name'] = "xxxxx"
+        gitlab_rails['smtp_password'] = "xxxxx"
         gitlab_rails['smtp_authentication'] = "login"
         gitlab_rails['smtp_tls'] = false
         gitlab_rails['smtp_openssl_verify_mode'] = 'none'
@@ -31,10 +31,10 @@ services:
         mattermost_nginx['redirect_http_to_https'] = true
         postgresql['shared_buffers'] = "1024MB"
     ports:
-      - '65.108.59.235:25:25'
-      - '65.108.59.235:80:80'
-      - '65.108.59.235:443:443'
-      - '65.108.59.235:2224:22'
+      - 'IP:25:25'
+      - 'IP:80:80'
+      - 'IP:443:443'
+      - 'IP:2224:22'
     volumes:
       - '$GITLAB_HOME/config:/etc/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'
