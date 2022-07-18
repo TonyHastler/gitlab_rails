@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  web:
+    container_name: DevGitlab
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'it.lippgardtco.org'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        #Gitlab configure
+        external_url 'https://www.it.lippgardtco.org'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        gitlab_rails['gitlab_default_theme'] = 2
+        #Send outgoing email via the SMTP container:
+        gitlab_rails['smtp_enable'] = true
+        gitlab_rails['smtp_address'] = "smtp.dentalbot.ru"
+        gitlab_rails['smtp_port'] = 25
+        gitlab_rails['smtp_domain'] = "dentalbot.ru"
+        gitlab_rails['smtp_user_name'] = "itgitlab@dentalbot.ru"
+        gitlab_rails['smtp_password'] = "zRYinffxft9xaNX"
+        gitlab_rails['smtp_authentication'] = "login"
+        gitlab_rails['smtp_tls'] = false
+        gitlab_rails['smtp_openssl_verify_mode'] = 'none'
+        gitlab_rails['smtp_enable_starttls_auto'] = false
+        gitlab_rails['smtp_ssl'] = false
+        gitlab_rails['smtp_force_ssl'] = false
+        gitlab_rails['smtp_ca_file'] = '/var/opt/gitlab/reg_dentalbot_cert.pem'
+        #Nginx force redirect to Https
+        nginx['redirect_http_to_https'] = true
+        registry_nginx['redirect_http_to_https'] = true
+        mattermost_nginx['redirect_http_to_https'] = true
+        postgresql['shared_buffers'] = "1024MB"
+    ports:
+      - '65.108.59.235:25:25'
+      - '65.108.59.235:80:80'
+      - '65.108.59.235:443:443'
+      - '65.108.59.235:2224:22'
+    volumes:
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
